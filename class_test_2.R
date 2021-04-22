@@ -18,6 +18,7 @@ str(london_crime)
 london_crime$Date <- as.Date(london_crime$Date, "%d/%m/%Y")
 str(london_crime$Date)
 
+############################# Solution 2 ####################################
 
 #We want to retain only the variables shown in this table, and we wish to convert the
 #variable names to that shown in the table. Make the relevant changes to the content of
@@ -35,6 +36,8 @@ names(london_crime)[names(london_crime) == "Date"] <- "CrimeDate"
 str(london_crime)
 colnames(london_crime)
 
+############################# Solution 3 ####################################
+
 #Q3
 #Convert the CrimeDate variable so that it is a variable of type Date. Confirm that the
 #variable has been changed to the required variable type by showing the structure and
@@ -45,6 +48,8 @@ colnames(london_crime)
 str(london_crime$CrimeDate)
 head(london_crime$CrimeDate,10)
 
+
+############################# Solution 4 #################################
 
 #Q4
 #Plot a chart to show the summary of the borough information so that we can view
@@ -84,7 +89,7 @@ plot(Borough, main = "Number of crime in Borough", xlab = "Borugh", ylab = "Numb
 #Borough has the highest level of crimes in Croydon: 5226
 #Borough has the lowest level of crimes in City of London: 86
 
-
+############################# Solution 5 #################################
 #Q5
 #Display the MajorCategory variable data in a pie chart. Using data output from the
 #summary() function, determine the highest and lowest major categories of crime in
@@ -105,7 +110,7 @@ pie(MajorCategory, main = "percentage of crime by MajorCategory",
 #Category having the highest level of crimes : Theft and Handling: 33759
 #Category having the lowest level of crimes : Sexual Offences: 917
 
-
+############################# Solution 6 #################################
 
 #Q6
 #Categorise each borough in the London_crime dataset into the general area where it
@@ -171,7 +176,7 @@ london_crime$Region
 london_crime$Region <- factor(london_crime$Region)
 str(london_crime$Region)
 
-
+############################# Solution 7 #################################
 
 #Display which region in London has the highest recorded crime rate. Using the plot()
 #function, show the number of reported crimes by region. Suitably label the chart and its
@@ -200,7 +205,7 @@ plot(london_crime$Region,
 # 2. Region having the highest number of crimes : East
 #counts : 38755
 
-
+############################# Solution 8 #################################
 
 #Q8
 #Referring to your answer in Q7, extract out the subset of data that had the highest
@@ -210,12 +215,35 @@ plot(london_crime$Region,
 
 summary(london_crime$Region)
 
-highest_no_of_crimes <- (london_crime$Region == 'East')
+highest_no_of_crimes <- subset(london_crime, london_crime$Region == "East")
 str(highest_no_of_crimes)
+dim(highest_no_of_crimes)
 
-lowest_no_of_crimes <- (london_crime$Region == 'East')
+
+plot(highest_no_of_crimes$MajorCategory,
+     main = "Number of crime in East region by Category ", 
+     xlab = "Region", 
+     ylab = "Number of crime", col = 'Red')
+
+lowest_no_of_crimes <- subset(london_crime, london_crime$Region == "North")
 str(lowest_no_of_crimes)
+dim(lowest_no_of_crimes)
 
+plot(lowest_no_of_crimes$MajorCategory,
+     main = "Number of crime in North region by Category ", 
+     xlab = "Region", 
+     ylab = "Number of crime", col = 'Blue')
+
+
+# Here in the plotting we can see the East region has highest number of  
+#crime in the Violence category
+
+# Here in the plotting we can see the North region has lowest number of  
+#crime, however major category in the sexual Offences category
+
+
+
+############################# Solution 9 #################################
 
 #Q9
 #Using information from the summary() function, plot the content of both of your data
@@ -224,6 +252,45 @@ str(lowest_no_of_crimes)
 #should be presented vertically.
 
 
+opar <- par(no.readonly = TRUE)
+par = opar
+
+par(mfrow = c(1,2))
+plot(highest_no_of_crimes$MajorCategory,
+     main = "Number of crime in East region by Category ", 
+     xlab = "Region", 
+     ylab = "Number of crime", col = 'Red')
+
+plot(lowest_no_of_crimes$MajorCategory,
+     main = "Number of crime in North region by Category ", 
+     xlab = "Region", 
+     ylab = "Number of crime", col = 'Blue')
+
+# Setting a graph range
+
+graph_range <- range(0,10000)
+graph_range
+
+# Both graphs will be dispalying on the same window 
+
+
+
+par(mfrow = c(1,2))
+
+plot(highest_no_of_crimes$MajorCategory,
+     main = "Number of crime in East region by Category ", 
+     xlab = "Number or crime", 
+     ylab = "category of crime", col = 'Red'
+     , las = 3, ylim = graph_range )
+
+plot(lowest_no_of_crimes$MajorCategory,
+     main = "Number of crime in North region by Category ", 
+     xlab = "Number or crime", 
+     ylab = "category of crime", col = 'Blue'
+     , las = 3, ylim = graph_range)
+
+
+############################# Solution 10 #################################
 
 #Q10
 #Using the write.csv() command, save the modified london_crime data frame as
@@ -231,9 +298,13 @@ str(lowest_no_of_crimes)
 #Finally, sync your script file as well as the London-crime-modified.csv file to the
 #remote GitHub repo.
 
-# Finally, synced the script file as well as modified_ufo.csv, ufo_gb.csv,
-# sorted_ufo_data.csv and missingvars.png file to the remote GitHub repo.
 # Link shared through Black board. 
+
+
+
+# newly modified london_crime data frame written to a csv file as london_crime_modified.csv 
+write.csv(london_crime, file= "london_crime_modified.csv")
+
 
 ##################################### The End #################################
 
