@@ -2,10 +2,10 @@
 
 # Created a new project called London in GitHub.
 # File "london-crime-data.csv" downloaded from blackboard and inserted into data frame called as "london-crime".
-# The UFO data set holds lots of variables that contain an empty space.
+# The data set holds  variables that contain an empty space.
 # Hence, replaced each empty space/missing content with NA.
 
-getwd()
+getwd() # Get the correct working directory
 
 london_crime <- read.csv("london-crime-data.csv", na = "") # Reading london-crime-data.csv file
 
@@ -13,17 +13,15 @@ london_crime [london_crime == ""] <- NA #Assigning blank spaces with NA
 london_crime
 
 london_crime$Date <- paste("01", london_crime$month, london_crime$year, sep='/')
-str(london_crime)
+str(london_crime) # will display the Date structure as character.
 
-london_crime$Date <- as.Date(london_crime$Date, "%d/%m/%Y")
-str(london_crime$Date)
+london_crime$Date <- as.Date(london_crime$Date, "%d/%m/%Y") #Converted to date type
+str(london_crime$Date) 
 
 ############################# Solution 2 ####################################
 
-#We want to retain only the variables shown in this table, and we wish to convert the
-#variable names to that shown in the table. Make the relevant changes to the content of
-#London_crime so that your variables are correctly named, and that unrequired variables
-#are discarded.
+# Make the relevant changes to the variable names of
+# London_crime so that your variables are correctly named
 
 
 # Updating the name of the variables to make it readable
@@ -43,17 +41,17 @@ colnames(london_crime)
 #variable has been changed to the required variable type by showing the structure and
 #content of the date variable.
 
-
-#london_crime$CrimeDate <- as.Date(london_crime$CrimeDate, "%d/%m/%Y")
+# Date already converted in the previous solution
+london_crime$CrimeDate <- as.Date(london_crime$CrimeDate, "%d/%m/%Y")
 str(london_crime$CrimeDate)
-head(london_crime$CrimeDate,10)
+head(london_crime$CrimeDate,10) # Display 10 records
 
 
 ############################# Solution 4 #################################
 
-#Q4
 #Plot a chart to show the summary of the borough information so that we can view
-#where most crimes occur. Using the summary() function, display this data in a chart
+#where most crimes occur. 
+#Using the summary() function, display this data in a chart
 #with suitable chart title and x and y axis subtitles. Then answer the following:
 #  • Add a comment in your code to show which borough has the highest level of
 #crime.
@@ -61,6 +59,8 @@ head(london_crime$CrimeDate,10)
 #crime.
 
 
+
+# Required Library Installed
 install.packages("mice")
 library(mice)
 md.pattern(london_crime)
@@ -90,7 +90,7 @@ plot(Borough, main = "Number of crime in Borough", xlab = "Borugh", ylab = "Numb
 #Borough has the lowest level of crimes in City of London: 86
 
 ############################# Solution 5 #################################
-#Q5
+
 #Display the MajorCategory variable data in a pie chart. Using data output from the
 #summary() function, determine the highest and lowest major categories of crime in
 #London. Then display this information in a pie chart using the pie() function.
@@ -112,7 +112,6 @@ pie(MajorCategory, main = "percentage of crime by MajorCategory",
 
 ############################# Solution 6 #################################
 
-#Q6
 #Categorise each borough in the London_crime dataset into the general area where it
 #lies within London. Using the table below, create a new variable called Region and store
 #within it the correct region for each borough.
@@ -121,6 +120,8 @@ pie(MajorCategory, main = "percentage of crime by MajorCategory",
 #regions that contain NA, replace them with a suitable Region. Clearly indicate in your
 #code how you checked this and any decisions you needed to make.
 
+
+#Reading the Region data 
 str(london_crime)
 Region <- read.csv("Region.csv", na = "") # Reading london-crime-data.csv file
 str(Region)
@@ -130,6 +131,8 @@ Region$Borough <- factor(Region$Borough)
 Region$Region <- factor(Region$Region)
 
 #Total_london_crime <- rbind()
+
+#Assigning Region to each Borough record
 
 london_crime$Region[Borough == 'Barking and Dagenham' | 
                       Borough == 'Bexley' |
@@ -207,7 +210,6 @@ plot(london_crime$Region,
 
 ############################# Solution 8 #################################
 
-#Q8
 #Referring to your answer in Q7, extract out the subset of data that had the highest
 #number of crimes. And then extract out a subset of data that had the lowest level of
 #crimes.
